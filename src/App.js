@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './App.css';
 import Navigation from './components/navigation/Navigation'
+import SignIn from './components/SignIn/SignIn'
 import Logo from './components/logo/Logo'
 import Rank from './components/rank/Rank'
 import ImageLinkForm from './components/imageLinkForm/ImageLinkForm.js'
@@ -30,6 +31,7 @@ class  App extends Component {
     this.state = {
       input: '',
       box: {},
+      route: 'signin',
     }
   }
 
@@ -52,7 +54,6 @@ class  App extends Component {
   displayFaceBox = (box) => {
     
     this.setState({ box: box})
-    console.log(this.state.box)
   }
 
   onInputChange = (event) =>{
@@ -65,16 +66,28 @@ class  App extends Component {
     
   }
 
+  onButtonSignin = () => {
+    this.setState({ route: 'home' });
+  }
+
+  onButtonSignout = () => {
+    this.setState({ route: 'signin' })
+  }
+
   render(){
     return (
       <div className="App">
         <Particles className='particles'
                   params={particlesOptions} />
-        <Navigation />
+        <Navigation onButtonSignout = { this.onButtonSignout} />
+        { this.state.route === 'signin' ? <SignIn onButtonSignin = {this.onButtonSignin} /> : 
+        <>
         <Logo />
         <Rank />
         <ImageLinkForm  onInputChange = {this.onInputChange} onButtonSubmit= {this.onButtonSubmit}/>
         <FaceRecognition box = {this.state.box} imageUrl = { this.state.input }/>
+        </>
+        }
       </div>
     );
   }
