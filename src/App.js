@@ -66,12 +66,8 @@ class  App extends Component {
     
   }
 
-  onButtonSignin = () => {
-    this.setState({ route: 'home' });
-  }
-
-  onButtonSignout = () => {
-    this.setState({ route: 'signin' })
+  onRouteChange = (route) => {
+    this.setState({route: route });
   }
 
   render(){
@@ -79,8 +75,8 @@ class  App extends Component {
       <div className="App">
         <Particles className='particles'
                   params={particlesOptions} />
-        <Navigation onButtonSignout = { this.onButtonSignout} />
-        { this.state.route === 'signin' ? <SignIn onButtonSignin = {this.onButtonSignin} /> : 
+        <Navigation onRouteChange = { this.onRouteChange} />
+        { this.state.route === 'signin' ? <SignIn onRouteChange = {this.onRouteChange} /> : 
         <>
         <Logo />
         <Rank />
